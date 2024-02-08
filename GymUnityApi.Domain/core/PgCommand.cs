@@ -5,8 +5,9 @@ namespace GymUnityApi.Domain.core;
 
 public class PgCommand
 {
-    private readonly string _connectionString = "Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres";
-    
+    private readonly string _connectionString =
+        "Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres";
+
     public IEnumerable<PgConverter> ExecuteDataTable(string statement, params PgType[] parameters)
     {
         var conn = new NpgsqlConnection(_connectionString);
@@ -14,22 +15,25 @@ public class PgCommand
         var cmd = new NpgsqlCommand(statement, conn);
         foreach (var parameter in parameters)
         {
-            cmd.Parameters.Add(new NpgsqlParameter(){Value = parameter.Value, NpgsqlDbType = parameter.Type});
+            cmd.Parameters.Add(new NpgsqlParameter() { Value = parameter.Value, NpgsqlDbType = parameter.Type });
         }
 
         var reader = cmd.ExecuteReader();
-        var result = new object[][reader.Rows];
-        for (int j = 0; j < Convert.ToInt32(reader.Rows); j++)
+        var result = new List<PgConverter>();
+        while (reader.Read())
         {
             var rowResult = new object[reader.FieldCount];
             for (int i = 0; i < reader.FieldCount; i++)
             {
-                rowResult[i] = reader.GetValue(i);
+                rowResult[i] = reader[i];
             }
+
+            result.Add(new PgConverter(rowResult));
         }
 
         conn.Close();
-        return result.Select(row => new PgConverter(row));
+        reader.Close();
+        return result;
     }
 
     public void ExecuteNonQuery(string statement, params PgType[] parameters)
@@ -39,7 +43,7 @@ public class PgCommand
         var cmd = new NpgsqlCommand(statement, conn);
         foreach (var parameter in parameters)
         {
-            cmd.Parameters.Add(new NpgsqlParameter(){Value = parameter.Value, NpgsqlDbType = parameter.Type});
+            cmd.Parameters.Add(new NpgsqlParameter() { Value = parameter.Value, NpgsqlDbType = parameter.Type });
         }
 
         cmd.ExecuteNonQuery();
@@ -54,10 +58,10 @@ public class PgType
 
     public static PgType String(string value)
     {
-        return new PgType {Value = value, Type = NpgsqlDbType.Text};
+        return new PgType { Value = value, Type = NpgsqlDbType.Text };
     }
 
-    public static PgType Guid(Guid value) => new(){Value = value, Type = NpgsqlDbType.Uuid};
+    public static PgType Guid(Guid value) => new() { Value = value, Type = NpgsqlDbType.Uuid };
 }
 
 public class PgConverter
@@ -66,10 +70,13 @@ public class PgConverter
 
     public PgConverter(object[] result)
     {
+        Console.WriteLine(result.Length);
         _result = result;
     }
-    
-    public Guid ToGuid(int index) => new Guid(_result[index].ToString() ?? throw new InvalidOperationException());
+
+    public Guid ToGuid(int index) => Guid.Parse(ToString(index));
+
     public string ToString(int index) => _result[index].ToString() ?? string.Empty;
+
     public int ToInt(int index) => Convert.ToInt32(_result[index]);
 }

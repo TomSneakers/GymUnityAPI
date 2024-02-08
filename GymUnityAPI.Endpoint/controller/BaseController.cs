@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GymUnityAPI.controller;
 
+[ApiController]
 public class BaseController : ControllerBase
 {
     protected ConnectedAccount ConnectedAccount { get; set; }
@@ -11,8 +12,7 @@ public class BaseController : ControllerBase
     {
         ConnectedAccount = new ConnectedAccount()
         {
-            Id = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new Exception("Not authenticated"),
-            Email = User.FindFirstValue(ClaimTypes.Email) ?? throw new Exception("Not authenticated")
+            Id = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? ""
         };
     }
 }

@@ -6,11 +6,11 @@ public class TrainingRepository
 {
     public void Save(Training training)
     {
-        var statement = "INSERT INTO training (id, owner_id, name, description) VALUES ($1, $2, $3, $4)";
+        var statement = "INSERT INTO training (id, owner_id, title, description) VALUES ($1, $2, $3, $4)";
         new PgCommand().ExecuteNonQuery(statement,
             PgType.Guid(training.Id),
             PgType.String(training.OwnerId),
-            PgType.String(training.Name),
+            PgType.String(training.Title),
             PgType.String(training.Description));
 
         SaveExercices(training);

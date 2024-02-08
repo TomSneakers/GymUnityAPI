@@ -4,15 +4,15 @@ public class Training
 {
     public Guid Id { get; private set; }
     public string OwnerId { get; set; }
-    public string Name { get; set; }
+    public string Title { get; set; }
     public string Description { get; set; }
     public IEnumerable<Exercice> Exercices { get; set; }
     
-    public Training(string ownerId, string name, string description, IEnumerable<Exercice> exercices)
+    public Training(string ownerId, string title, string description, IEnumerable<Exercice> exercices)
     {
         Id = Guid.NewGuid();
         OwnerId = ownerId;
-        Name = name;
+        Title = title;
         Description = description;
         Exercices = exercices;
     }

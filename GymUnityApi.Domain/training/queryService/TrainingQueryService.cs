@@ -6,6 +6,7 @@ public class TrainingQueryService
 {
     public IEnumerable<TrainingPreview> GetTrainings(string accountId)
     {
-        return TrainingQueryRepository.GetTrainings(accountId);
+        var trainingPreviews = TrainingQueryRepository.GetTrainings(accountId);
+        return trainingPreviews;
     }
 }
