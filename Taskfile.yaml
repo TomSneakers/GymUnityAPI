@@ -3,10 +3,10 @@ version: '3'
 tasks:
   install:
     cmds:
-      - docker build -t gymUnityApi .
-      - docker rm -f gymUnityApi || true
-      - docker run -d -p 5000:5000 --name gymUnityApi --network gymunity gymUnityApi
-    
+      - docker build -t gym-unity-api .
+      - docker rm -f gym-unity-api || true
+      - docker run -d -p 5000:5000 --name gym-unity-api --network gymunity gym-unity-api
+  
   initialise:
     cmds:
       - docker network create -d bridge gymunity
@@ -15,4 +15,4 @@ tasks:
   
   dbup:
     cmds:
-      - dotnet ef database update
+      - dotnet ef database update --project GymUnityApi.Endpoint
