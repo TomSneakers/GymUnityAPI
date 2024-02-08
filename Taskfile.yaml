@@ -1,0 +1,15 @@
+version: '3'
+
+tasks:
+  install:
+    cmds:
+      - docker build -t gymUnityApi .
+      - docker rm -f gymUnityApi || true
+      - docker run -d -p 5000:5000 --name gymUnityApi --network gymunity gymUnityApi
+    
+  initialise:
+    cmds:
+      - docker network create -d bridged gymunity
+      - docker run --name gymunityapi-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 --network gymunity --network-alias gymunity-postgres -d postgres
+      - dotnet tool install --global dotnet-ef
+      - dotnet ef database update
