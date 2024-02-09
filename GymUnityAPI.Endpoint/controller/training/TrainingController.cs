@@ -1,7 +1,6 @@
 using System.Security.Claims;
-using GymUnityApi.Domain.training;
+using GymUnityApi.Domain.core.ioc;
 using GymUnityApi.Domain.training.dto;
-using GymUnityApi.Domain.training.queryService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,21 +12,21 @@ public class TrainingController : ControllerBase
 {
     [HttpGet]
     [Authorize]
-
-    public ObjectResult Get()
+    public ObjectResult GetTrainings()
     {
-        var customerTrainings =
-            new TrainingQueryService().GetTrainings(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var customerTrainings = Locator.TrainingQueryService()
+                                       .GetTrainings(User.FindFirstValue(ClaimTypes.NameIdentifier));
         return Ok(customerTrainings);
     }
 
     [HttpPost]
     [Authorize]
-    public ActionResult Post(TrainingDto body)
+    public ActionResult Post(TrainingTemplate body)
     {
-        new TrainingCommand().CreateTraining(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "", body.Title,
-            body.Description,
-            body.Exercices);
+        Locator.TrainingCommand()
+               .CreateTraining(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "", body.Title,
+                   body.Description,
+                   body.Exercices);
 
         return Ok();
     }

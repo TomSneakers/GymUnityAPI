@@ -6,7 +6,7 @@ public class TrainingBuilder
 {
     private string _name = string.Empty;
     private string _description = string.Empty;
-    private IEnumerable<Exercice> _exercices = new List<Exercice>();
+    private IEnumerable<Exercise> _exercices = new List<Exercise>();
     private string _ownerId = "";
 
     public TrainingBuilder For(string userId)
@@ -29,7 +29,7 @@ public class TrainingBuilder
 
     public TrainingBuilder WithExercices(IEnumerable<ExerciceDto> exercices)
     {
-        _exercices = exercices.Select(exo => new Exercice(exo.Name));
+        _exercices = exercices.Select(exo => new Exercise(exo.Name));
         return this;
     }
 

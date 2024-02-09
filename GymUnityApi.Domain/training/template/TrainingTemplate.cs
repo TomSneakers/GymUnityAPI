@@ -1,6 +1,6 @@
 namespace GymUnityApi.Domain.training.dto;
 
-public class TrainingDto
+public class TrainingTemplate
 {
     public string Title { get; set; } = "";
     public string Description { get; set; } = "";

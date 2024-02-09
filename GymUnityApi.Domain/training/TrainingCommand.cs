@@ -1,3 +1,4 @@
+using GymUnityApi.Domain.core.ioc;
 using GymUnityApi.Domain.training.dto;
 
 namespace GymUnityApi.Domain.training;
@@ -12,6 +13,6 @@ public class TrainingCommand
                                             .WithExercices(exercices)
                                             .Build();
         
-        new TrainingRepository().Save(training);
+        Locator.TrainingRepository().Save(training);
     }
 }

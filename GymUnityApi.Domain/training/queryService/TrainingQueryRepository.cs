@@ -5,7 +5,7 @@ namespace GymUnityApi.Domain.training.queryService;
 
 public class TrainingQueryRepository
 {
-    public static IEnumerable<TrainingPreview> GetTrainings(string accountId)
+    public IEnumerable<TrainingPreview> GetTrainings(string accountId)
     {
         var statement = @"SELECT t.id, 
                                  t.title, 

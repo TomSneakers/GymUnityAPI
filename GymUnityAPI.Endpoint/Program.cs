@@ -1,6 +1,10 @@
 using GymUnityAPI;
+using GymUnityApi.Domain.core.ioc;
+using GymUnityApi.Domain.core.ioc.injector;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
+Locator.Load(new ProdInjector());
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddIdentityApiEndpoints<IdentityUser>()
