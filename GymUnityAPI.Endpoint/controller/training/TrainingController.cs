@@ -13,11 +13,11 @@ public class TrainingController : ControllerBase
 {
     [HttpGet]
     [Authorize]
+
     public ObjectResult Get()
     {
         var customerTrainings =
-            new TrainingQueryService().GetTrainings(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "");
-
+            new TrainingQueryService().GetTrainings(User.FindFirstValue(ClaimTypes.NameIdentifier));
         return Ok(customerTrainings);
     }
 

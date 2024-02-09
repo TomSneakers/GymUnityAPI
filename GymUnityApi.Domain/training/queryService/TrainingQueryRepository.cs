@@ -11,9 +11,9 @@ public class TrainingQueryRepository
                                  t.title, 
                                  COUNT(te.id)
                           FROM training t 
-                          JOIN training_exercise te ON t.id = te.training_id 
+                          LEFT JOIN training_exercise te ON t.id = te.training_id 
                           WHERE t.owner_id = $1 
-                          GROUP BY t.id, t.title";
+                          GROUP BY t.id, t.title;";
         var result = new PgCommand().ExecuteDataTable(statement, PgType.String(accountId));
         return result.Select(convert => new TrainingPreview
         {

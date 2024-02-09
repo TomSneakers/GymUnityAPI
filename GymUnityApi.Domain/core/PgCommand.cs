@@ -70,7 +70,6 @@ public class PgConverter
 
     public PgConverter(object[] result)
     {
-        Console.WriteLine(result.Length);
         _result = result;
     }
 
