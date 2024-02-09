@@ -1,7 +1,10 @@
 using GymUnityApi.Domain.core.ioc.injector;
-using GymUnityApi.Domain.training;
-using GymUnityApi.Domain.training.queryService;
-using GymUnityApi.Domain.training.repository;
+using GymUnityApi.Domain.exercise.queryService;
+using GymUnityApi.Domain.exercise.queryService.queryRepository;
+using GymUnityApi.Domain.exercise.repository;
+using GymUnityApi.Domain.workout;
+using GymUnityApi.Domain.workout.queryService;
+using GymUnityApi.Domain.workout.repository;
 
 namespace GymUnityApi.Domain.core.ioc;
 
@@ -14,8 +17,11 @@ public static class Locator
         _injector = injector;
     }
 
-    public static TrainingQueryService TrainingQueryService() => _injector.TrainingQueryService();
-    public static TrainingCommand TrainingCommand() => _injector.TrainingCommand();
-    public static TrainingQueryRepository TrainingQueryRepository() => _injector.TrainingQueryRepository();
-    public static TrainingRepository TrainingRepository() => _injector.TrainingRepository();
+    public static WorkoutQueryService WorkoutQueryService() => _injector.WorkoutQueryService();
+    public static WorkoutCommand WorkoutCommand() => _injector.WorkoutCommand();
+    public static WorkoutQueryRepository WorkoutQueryRepository() => _injector.WorkoutQueryRepository();
+    public static WorkoutRepository WorkoutRepository() => _injector.WorkoutRepository();
+    public static ExerciseRepository ExerciseRepository() => _injector.ExerciseRepository();
+    public static ExerciseQueryRepository ExerciseQueryRepository() => _injector.ExerciseQueryRepository();
+    public static ExerciseQueryService ExerciseQueryService() => _injector.ExerciseQueryService();
 }

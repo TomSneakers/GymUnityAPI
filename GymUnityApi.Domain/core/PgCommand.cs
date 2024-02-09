@@ -1,5 +1,4 @@
 using Npgsql;
-using NpgsqlTypes;
 
 namespace GymUnityApi.Domain.core;
 
@@ -19,6 +18,11 @@ public class PgCommand
         }
 
         var reader = cmd.ExecuteReader();
+        return ExtractReader(reader);
+    }
+
+    private static IEnumerable<PgConverter> ExtractReader(NpgsqlDataReader reader)
+    {
         var result = new List<PgConverter>();
         while (reader.Read())
         {
@@ -31,7 +35,6 @@ public class PgCommand
             result.Add(new PgConverter(rowResult));
         }
 
-        conn.Close();
         reader.Close();
         return result;
     }
@@ -49,33 +52,4 @@ public class PgCommand
         cmd.ExecuteNonQuery();
         conn.Close();
     }
-}
-
-public class PgType
-{
-    public object? Value { get; set; }
-    public NpgsqlDbType Type { get; set; }
-
-    public static PgType String(string value)
-    {
-        return new PgType { Value = value, Type = NpgsqlDbType.Text };
-    }
-
-    public static PgType Guid(Guid value) => new() { Value = value, Type = NpgsqlDbType.Uuid };
-}
-
-public class PgConverter
-{
-    private readonly object[] _result;
-
-    public PgConverter(object[] result)
-    {
-        _result = result;
-    }
-
-    public Guid ToGuid(int index) => Guid.Parse(ToString(index));
-
-    public string ToString(int index) => _result[index].ToString() ?? string.Empty;
-
-    public int ToInt(int index) => Convert.ToInt32(_result[index]);
 }

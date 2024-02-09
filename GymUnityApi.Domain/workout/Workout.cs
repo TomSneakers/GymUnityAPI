@@ -1,6 +1,8 @@
-namespace GymUnityApi.Domain.training;
+using GymUnityApi.Domain.exercise.type;
 
-public class Training(string ownerId, string title, string description, IEnumerable<Exercise> exercises)
+namespace GymUnityApi.Domain.workout;
+
+public class Workout(string ownerId, string title, string description, IEnumerable<Exercise> exercises)
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
     public string OwnerId { get; set; } = ownerId;
