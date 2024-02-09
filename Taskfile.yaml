@@ -17,3 +17,8 @@ tasks:
   dbup:
     cmds:
       - dotnet run --project GymUnityApi.Migration
+  
+  start:
+    dir: GymUnityApi.Endpoint
+    cmds:
+      - dotnet watch http
