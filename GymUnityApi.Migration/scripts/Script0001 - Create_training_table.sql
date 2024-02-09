@@ -1,0 +1,2 @@
+CREATE TABLE training (id UUID PRIMARY KEY, owner_id text REFERENCES "AspNetUsers"("Id"), title text, description text);
+CREATE TABLE training_exercise (id UUID PRIMARY KEY, training_id UUID REFERENCES training(id), name text);

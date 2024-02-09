@@ -3,7 +3,6 @@ using GymUnityApi.Domain.core.ioc.injector;
 using GymUnityApi.Domain.training;
 using GymUnityApi.Domain.training.queryService;
 using GymUnityApi.Domain.training.repository;
-using GymUnityApi.Tests.unit.training;
 using Moq;
 using NUnit.Framework;
 

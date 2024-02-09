@@ -6,7 +6,7 @@ namespace GymUnityApi.Domain.core;
 public class PgCommand
 {
     private readonly string _connectionString =
-        "Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres";
+        "Host=localhost;Port=6432;Database=postgres;Username=postgres;Password=postgres";
 
     public IEnumerable<PgConverter> ExecuteDataTable(string statement, params PgType[] parameters)
     {

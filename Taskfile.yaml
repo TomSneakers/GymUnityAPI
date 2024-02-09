@@ -9,10 +9,11 @@ tasks:
   
   initialise:
     cmds:
-      - docker network create -d bridge gymunity
-      - docker run --name gymunityapi-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 --network gymunity --network-alias gymunity-postgres -d postgres
-      - dotnet ef database update
+      - docker network create -d bridge gymunity || true
+      - docker run --name gymunityapi-postgres -e POSTGRES_PASSWORD=postgres -p 6432:5432 --network gymunity --network-alias gymunity-postgres -d postgres
+      - dotnet ef database update --project GymUnityApi.Endpoint
+      - dotnet run --project GymUnityApi.Migration
   
   dbup:
     cmds:
-      - dotnet ef database update --project GymUnityApi.Endpoint
+      - dotnet run --project GymUnityApi.Migration
