@@ -25,7 +25,7 @@ public class TrainingController : ControllerBase
     [Authorize]
     public ActionResult Post(TrainingDto body)
     {
-        new TrainingCommand().CreateTraining(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "", body.Name,
+        new TrainingCommand().CreateTraining(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "", body.Title,
             body.Description,
             body.Exercices);
 
