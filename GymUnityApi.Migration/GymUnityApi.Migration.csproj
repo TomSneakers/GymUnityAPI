@@ -17,6 +17,8 @@
       <EmbeddedResource Include="scripts\Script0001 - Create_training_table.sql" />
       <None Remove="scripts\Script0002 - Create_exercise_table.sql" />
       <EmbeddedResource Include="scripts\Script0002 - Create_exercise_table.sql" />
+      <None Remove="scripts\Script0003 - add_position_for_exercise.sql" />
+      <EmbeddedResource Include="scripts\Script0003 - add_position_for_exercise.sql" />
     </ItemGroup>
 
 </Project>

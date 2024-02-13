@@ -5,7 +5,7 @@ tasks:
     cmds:
       - docker build -t gym-unity-api .
       - docker rm -f gym-unity-api || true
-      - docker run -d -p 5000:5000 --name gym-unity-api --network gymunity gym-unity-api
+      - docker run -d -p 5149:8080 --name gym-unity-api --network gymunity gym-unity-api
   
   initialise:
     cmds:
@@ -17,8 +17,3 @@ tasks:
   dbup:
     cmds:
       - dotnet run --project GymUnityApi.Migration
-  
-  start:
-    dir: GymUnityApi.Endpoint
-    cmds:
-      - dotnet watch http
